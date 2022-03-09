@@ -1,10 +1,14 @@
 const express = require('express');
+const { dbConnection } = require('./db/config');
 
 //variables de entorno
 require('dotenv').config();
 
 //inicio de la app
 const app = express();
+
+//DB
+dbConnection();
 
 //permite que sean leidos los datos del body
 app.use(express.json());
