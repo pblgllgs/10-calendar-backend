@@ -17,6 +17,7 @@ dbConnection();
 //permite que sean leidos los datos del body
 app.use(express.json());
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/events', require('./routes/events'));
 
 
 //escucha del puerto donde se ejecutará
