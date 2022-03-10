@@ -18,7 +18,7 @@ const newUser = async (req, res = response) => {
         const salt = bcrypt.genSaltSync(10);
         user.password = bcrypt.hashSync(password, salt);
         await user.save();
-        const token = await generarJWT(user.uid, user.name);
+        const token = await generarJWT(user.id, user.name);
         res.status(201).json({
             ok: true,
             uid: user.id,
@@ -51,7 +51,7 @@ const login = async (req, res = response) => {
                 msg: 'Credensiales incorrectas',
             });
         }
-        const token = await generarJWT(user.uid, user.name);
+        const token = await generarJWT(user.id, user.name);
         res.status(200).json({
             ok: true,
             uid: user.id,
@@ -67,11 +67,12 @@ const login = async (req, res = response) => {
     }
 };
 
-const renewToken = (req, res = response) => {
-    
+const renewToken = async(req, res = response) => {
+    const {uid,name} = req;
+    const token = await generarJWT(uid, name);
     res.json({
         ok: true,
-        msg: 'renew',
+        token
     });
 };
 
